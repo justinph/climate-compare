@@ -7,12 +7,24 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-modernizr');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-sass');
 
 
     // Project configuration.
     grunt.initConfig({
         pkg: require('./package'),
+
+
+        sass: {
+            dev: {
+                options:{
+                    sourcemap: "auto",
+                },
+                files: {
+                   'css/main.css': 'css/main.scss',
+                }
+            }
+        },
 
         //compress(uglify) require.js itself
         // uglify: {
@@ -111,7 +123,7 @@ module.exports = function (grunt) {
 
     //grunt.registerTask('deploy', ['jshint', 'less:deploy', 'requirejs', 'modernizr', 'uglify:requirejs', 'concat:deploy']);
 
-    grunt.registerTask('default', ['less:dev']);
+    grunt.registerTask('default', ['sass:dev']);
 
 
 };
