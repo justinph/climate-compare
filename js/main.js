@@ -29,7 +29,7 @@ CC.updateGraph = function (event) {
 CC.setupGraph = function (){
     var margin = {top: 20, right: 20, bottom: 30, left: 50};
 
-    this.width = 960 - margin.left - margin.right,
+    this.width = document.body.clientWidth - 100,
     this.height = 500 - margin.top - margin.bottom;
 
     this.x = d3.time.scale()
@@ -48,7 +48,8 @@ CC.setupGraph = function (){
 
     this.xAxis = d3.svg.axis()
         .scale(this.x)
-        .orient('bottom');
+        .orient('bottom')
+        .tickFormat(d3.time.format("%b"));
 
     this.yAxis = d3.svg.axis()
         .scale(this.y)
@@ -77,6 +78,7 @@ CC.setupGraph = function (){
 
     //min/max area line
     this.tminTmaxArea = d3.svg.area()
+        .interpolate('cardinal')
         .x(function (d) { return CC.x(d.date); })
         .y0(function (d) { return CC.y(d.tmin); })
         .y1(function (d) { return CC.y(d.tmax); });

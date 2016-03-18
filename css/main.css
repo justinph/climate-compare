@@ -1,24 +1,45 @@
 html {
-  background-color: #666;
-  color: #fff; }
+  background-color: #999;
+  color: #fff;
+  font-family: sans-serif;
+  text-align: center; }
 
 .axis path,
 .axis line {
   fill: none;
-  stroke: #000;
+  stroke: #666;
   shape-rendering: crispEdges; }
+.axis text {
+  fill: #666; }
 
-.x.axis path {
+.color-box {
+  display: inline;
+  padding: 5px; }
+  .color-box.box-0 {
+    border: 1px solid rgba(116, 138, 125, 0.85);
+    background-color: rgba(163, 214, 183, 0.3);
+    padding-left: 30px; }
+  .color-box.box-1 {
+    border: 1px solid rgba(228, 168, 64, 0.85);
+    background-color: rgba(154, 118, 56, 0.3);
+    padding-right: 30px; }
+
+.x.axis path,
+.y.axis path {
   display: none; }
 
-.temp-range {
-  fill: rgba(70, 130, 180, 0.75); }
-  .temp-range .min-max-1 {
-    fill: rgba(70, 130, 180, 0.5); }
+.temp-range.min-max-0 {
+  fill: rgba(163, 214, 183, 0.3); }
+.temp-range.min-max-1 {
+  fill: rgba(154, 118, 56, 0.3); }
 
 .avg-temp {
   fill: none;
   stroke: blue;
-  stroke-width: 1.5px; }
+  stroke-width: 2px; }
+  .avg-temp.avg-0 {
+    stroke: rgba(116, 138, 125, 0.85); }
+  .avg-temp.avg-1 {
+    stroke: rgba(228, 168, 64, 0.85); }
 
 /*# sourceMappingURL=main.css.map */
