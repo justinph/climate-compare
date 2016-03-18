@@ -39,10 +39,18 @@ CC.setupGraph = function (){
     this.height = 500 - margin.top - margin.bottom;
 
     this.x = d3.time.scale()
-        .range([0, this.width]);
+        .range([0, this.width])
+        .domain([
+            this.parseDate('20100101'),
+            this.parseDate('20101231')
+        ]);
 
     this.y = d3.scale.linear()
-        .range([this.height, 0]);
+        .range([this.height, 0])
+        .domain([
+            5,  //d3.min(rows, function (d) { return d.tmin; }),
+            95 //d3.max(rows, function (d) { return d.tmax; })
+        ]);
 
     this.xAxis = d3.svg.axis()
         .scale(this.x)
@@ -51,15 +59,6 @@ CC.setupGraph = function (){
     this.yAxis = d3.svg.axis()
         .scale(this.y)
         .orient('left');
-
-    this.tavgLine = d3.svg.line()
-        .x(function (d) { return CC.x(d.date); })
-        .y(function (d) { return CC.y(d.tavg); });
-
-    this.tminTmaxArea = d3.svg.area()
-        .x(function (d) { return CC.x(d.date); })
-        .y0(function (d) { return CC.y(d.tmin); })
-        .y1(function (d) { return CC.y(d.tmax); });
 
     this.svg = d3.select('body').append('svg')
         .attr('width', this.width + margin.left + margin.right)
@@ -76,16 +75,18 @@ CC.setupGraph = function (){
         .attr('class', 'y axis')
         .call(this.yAxis);
 
-    // hard code domain for dates we know all data uses
-    this.x.domain([
-        this.parseDate('20100101'),
-        this.parseDate('20101231')
-    ]);
-    // hard code temp range
-    this.y.domain([
-        5,  //d3.min(rows, function (d) { return d.tmin; }),
-        95 //d3.max(rows, function (d) { return d.tmax; })
-    ]);
+
+    //setup avg line
+    this.tavgLine = d3.svg.line()
+        .x(function (d) { return CC.x(d.date); })
+        .y(function (d) { return CC.y(d.tavg); });
+
+    //min/max area line
+    this.tminTmaxArea = d3.svg.area()
+        .x(function (d) { return CC.x(d.date); })
+        .y0(function (d) { return CC.y(d.tmin); })
+        .y1(function (d) { return CC.y(d.tmax); });
+
 
     CC.doneSetup = true;
 };
