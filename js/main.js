@@ -1,11 +1,33 @@
 'use strict';
 
 //set namespace if it doesn't exist
-this['CC'] = this['CC'] || {};
+this['CC'] = this['CC'] || {
+    doneSetup: false
+};
+
 
 CC.init = function (){
-    this.setupGraph();
-    this.loadData();
+    this.bindEvents();
+};
+
+CC.bindEvents = function (){
+    $('.select-city').on('change', CC.updateGraph);
+};
+
+CC.updateGraph = function (event) {
+    var $el = $(this);
+    var val = $el.find(':selected').val();
+    var idx = $el.data('idx');
+    if (!val){ return; }
+    if (!CC.doneSetup){ CC.setupGraph(); };
+
+    CC.clearPrevGraph(idx);
+    CC.loadData(val, idx);
+
+};
+
+CC.clearPrevGraph = function (idx){
+
 };
 
 CC.setupGraph = function (){
@@ -28,7 +50,11 @@ CC.setupGraph = function (){
         .scale(this.y)
         .orient('left');
 
-    this.area = d3.svg.area()
+    this.tavgLine = d3.svg.line()
+        .x(function (d) { return CC.x(d.date); })
+        .y(function (d) { return CC.y(d.tavg); });
+
+    this.tminTmaxArea = d3.svg.area()
         .x(function (d) { return CC.x(d.date); })
         .y0(function (d) { return CC.y(d.tmin); })
         .y1(function (d) { return CC.y(d.tmax); });
@@ -39,49 +65,59 @@ CC.setupGraph = function (){
         .append('g')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+    this.svg.append('g')
+        .attr('class', 'x axis')
+        .attr('transform', 'translate(0,' + this.height + ')')
+        .call(this.xAxis);
+
+    this.svg.append('g')
+        .attr('class', 'y axis')
+        .call(this.yAxis);
+
+    // hard code domain for dates we know all data uses
+    this.x.domain([
+        this.parseDate('20100101'),
+        this.parseDate('20101231')
+    ]);
+    // hard code temp range
+    this.y.domain([
+        5,  //d3.min(rows, function (d) { return d.tmin; }),
+        95 //d3.max(rows, function (d) { return d.tmax; })
+    ]);
+
+    CC.doneSetup = true;
 };
 
+CC.parseDate = d3.time.format('%Y%m%d').parse;
 
-CC.loadData = function (){
-    var parseDate = d3.time.format('%Y%m%d').parse;
+CC.loadData = function (stationId, idx){
+    //stationId = 'USW00014922';
+    var dataFile = 'data/stations/'+stationId+'.csv';
 
-    d3.csv('data/stations/USW00014922.csv')
+    d3.csv(dataFile)
         //parse data
         .row(function (d) {
             d.tavg = d['DLY-TAVG-NORMAL'] * 0.1;
             d.tmax = d['DLY-TMAX-NORMAL'] * 0.1;
             d.tmin = d['DLY-TMIN-NORMAL'] * 0.1;
-            d.date = parseDate(d['DATE']);
+            d.date = CC.parseDate(d['DATE']);
             d.loc = [+d.LATITUDE, +d.LONGITUDE];
             return d;
         })
         //do stuff with it
         .get(function (error, rows) {
-            CC.x.domain(d3.extent(rows, function (d) { return d.date; }));
-            CC.y.domain([d3.min(rows, function (d) { return d.tmin; }), d3.max(rows, function (d) { return d.tmax; })]);
-
 
             CC.svg.append('path')
                 .datum(rows)
-                .attr('class', 'area')
-                .attr('d', CC.area);
+                .attr('class', 'temp-range min-max-'+idx)
+                .attr('data-idx', idx)
+                .attr('d', CC.tminTmaxArea);
 
-            CC.svg.append('g')
-                .attr('class', 'x axis')
-                .attr('transform', 'translate(0,' + CC.height + ')')
-                .call(CC.xAxis);
-
-            CC.svg.append('g')
-                    .attr('class', 'y axis')
-                    .call(CC.yAxis);
-              //   .append('text')
-              //       .attr('transform', 'rotate(-90)')
-              // .attr('y', 6)
-              // .attr('dy', '.71em')
-              // .style('text-anchor', 'end')
-              // .text('Temperature (ºF)');
-
-            //console.log(rows);
+            CC.svg.append('path')
+                .datum(rows)
+                .attr('class', 'avg-temp avg-'+idx)
+                .attr('data-idx', idx)
+                .attr('d', CC.tavgLine);
         });
 };
 

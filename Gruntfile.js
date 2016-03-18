@@ -101,14 +101,13 @@ module.exports = function (grunt) {
         },
 
         watch: {
-            less: {
-                files: ['css/**/*.less'],
-                tasks: 'less:dev'
+            sass: {
+                files: ['css/**/*.scss'],
+                tasks: 'sass:dev'
             },
             js: {
                 files: [
                     'Gruntfile.js',
-                    //'js/js/init.js',
                     'js/*.js'
                 ],
                 //tasks: 'jshint'

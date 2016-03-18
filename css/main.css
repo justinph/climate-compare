@@ -2,4 +2,23 @@ html {
   background-color: #666;
   color: #fff; }
 
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges; }
+
+.x.axis path {
+  display: none; }
+
+.temp-range {
+  fill: rgba(70, 130, 180, 0.75); }
+  .temp-range .min-max-1 {
+    fill: rgba(70, 130, 180, 0.5); }
+
+.avg-temp {
+  fill: none;
+  stroke: blue;
+  stroke-width: 1.5px; }
+
 /*# sourceMappingURL=main.css.map */

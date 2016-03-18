@@ -5,3 +5,31 @@ html {
     background-color: $grey;
     color: $white;
 }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.temp-range {
+    fill: rgba(70, 130, 180, 0.75);
+
+    .min-max-1 {
+        fill: rgba(70, 130, 180, 0.50);
+    }
+}
+
+
+.avg-temp {
+  fill: none;
+  stroke: blue;
+  stroke-width: 1.5px;
+}
+
+
