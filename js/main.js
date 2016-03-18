@@ -26,12 +26,6 @@ CC.updateGraph = function (event) {
 
 };
 
-// CC.clearPrevGraph = function (idx){
-//     // this.svg.select(".line")   // change the line
-//     //         .duration(750)
-//     //         .attr("d", valueline(data));
-// };
-
 CC.setupGraph = function (){
     var margin = {top: 20, right: 20, bottom: 30, left: 50};
 
@@ -114,34 +108,38 @@ CC.loadData = function (stationId, idx){
 };
 
 CC.drawLine = function (idx, data){
-    var svg = d3.select('body').transition();
+    var svg = d3.select('body'); //.transition();
 
-    var minMaxSel = svg.select('temp-range.min-max-'+idx);
+    var minMaxSel = svg.select('.temp-range.min-max-'+idx);
     var avgSel = svg.select('.avg-temp.avg-'+idx);
 
     if (minMaxSel.empty() && avgSel.empty()) {
-        //haven't been drawn yet
-        CC.svg.append('path')
-            .datum(data)
+        CC.svg.selectAll()
+            .data([data])
+            .enter()
+            .append('svg:path')
             .attr('class', 'temp-range min-max-'+idx)
             .attr('data-idx', idx)
             .attr('d', CC.tminTmaxArea);
 
-        CC.svg.append('path')
-            .datum(data)
+        CC.svg.selectAll()
+            .data([data])
+            .enter()
+            .append('svg:path')
             .attr('class', 'avg-temp avg-'+idx)
             .attr('data-idx', idx)
             .attr('d', CC.tavgLine);
+
     } else {
         //update existing
         minMaxSel
-            .duration(750)
-            .datum(data)
+            // .duration(750)
+            .data([data])
             .attr('d', CC.tminTmaxArea);
 
         avgSel
-            .duration(750)
-            .datum(data)
+            //.duration(750)
+            .data([data])
             .attr('d', CC.tavgLine);
 
     }
