@@ -10,51 +10,58 @@
 <body>
     <h1>Climate Comparison</h1>
 
+    <p>Compare temperature ranges for cities.</p>
+
     <div>
         <div class="color-box box-0">
             <select class="select-city" data-idx='0'>
                 <option>Select City</option>
+                <option value="USW00003812">Asheville, NC</option>
+                <option value="USW00013904">Austin, TX</option>
+                <option value="USW00094846">Chicago, IL</option>
+                <option value="USW00014821">Columbus, OH</option>
+                <option value="USW00003017">Denver, CO</option>
+                <option value="USW00023174">Los Angeles, CA</option>
+                <option value="USW00093821">Louisville, KY</option>
+                <option value="USW00014839">Milwaukee, WI</option>
                 <option value="USW00014922">Minneapolis, MN</option>
                 <option value="USW00094728">New York, NY</option>
-                <option value="USW00014839">Milwaukee, WI</option>
-                <option value="USW00094846">Chicago, IL</option>
-                <option value="USW00024229">Portland, OR</option>
-                <option value="USW00023234">San Francisco, CA</option>
-                <option value="USW00023174">Los Angeles, CA</option>
-                <option value="USW00023188">San Diego, CA</option>
-                <option value="USW00013904">Austin, TX</option>
-                <option value="USW00003017">Denver, CO</option>
-                <option value="USW00003812">Asheville, NC</option>
                 <option value="USW00094823">Pittsburgh, PA</option>
-                <option value="USW00013743">Washington, DC</option>
-                <option value="USW00093821">Louisville, KY</option>
-                <option value="USW00014821">Columbus, OH</option>
+                <option value="USW00024229">Portland, OR</option>
                 <option value="USW00024127">Salt Lake City, UT</option>
+                <option value="USW00023188">San Diego, CA</option>
+                <option value="USW00023234">San Francisco, CA</option>
+                <option value="USW00024233">Seattle, WA</option>
+                <option value="USW00013743">Washington, DC</option>
             </select>
         </div>
         <div class="color-box box-1">
             <select class="select-city" data-idx="1">
                 <option>Select City</option>
+                <option value="USW00003812">Asheville, NC</option>
+                <option value="USW00013904">Austin, TX</option>
+                <option value="USW00094846">Chicago, IL</option>
+                <option value="USW00014821">Columbus, OH</option>
+                <option value="USW00003017">Denver, CO</option>
+                <option value="USW00023174">Los Angeles, CA</option>
+                <option value="USW00093821">Louisville, KY</option>
+                <option value="USW00014839">Milwaukee, WI</option>
                 <option value="USW00014922">Minneapolis, MN</option>
                 <option value="USW00094728">New York, NY</option>
-                <option value="USW00014839">Milwaukee, WI</option>
-                <option value="USW00094846">Chicago, IL</option>
-                <option value="USW00024229">Portland, OR</option>
-                <option value="USW00023234">San Francisco, CA</option>
-                <option value="USW00023174">Los Angeles, CA</option>
-                <option value="USW00023188">San Diego, CA</option>
-                <option value="USW00013904">Austin, TX</option>
-                <option value="USW00003017">Denver, CO</option>
-                <option value="USW00003812">Asheville, NC</option>
                 <option value="USW00094823">Pittsburgh, PA</option>
-                <option value="USW00013743">Washington, DC</option>
-                <option value="USW00093821">Louisville, KY</option>
-                <option value="USW00014821">Columbus, OH</option>
+                <option value="USW00024229">Portland, OR</option>
                 <option value="USW00024127">Salt Lake City, UT</option>
+                <option value="USW00023188">San Diego, CA</option>
+                <option value="USW00023234">San Francisco, CA</option>
+                <option value="USW00024233">Seattle, WA</option>
+                <option value="USW00013743">Washington, DC</option>
             </select>
         </div>
    </div>
 
+   <svg></svg>
+
+   <p class="small hidden">Data from NOAA using the 1981-2010 U.S. Climate Normals, showing average minium, average maximum, and average daily temperatures.</p>
 
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/d3/d3.min.js"></script>

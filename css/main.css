@@ -42,4 +42,10 @@ html {
   .avg-temp.avg-1 {
     stroke: rgba(228, 168, 64, 0.85); }
 
+p.small {
+  color: #666;
+  font-size: .9rem; }
+  p.small.hidden {
+    visibility: hidden; }
+
 /*# sourceMappingURL=main.css.map */

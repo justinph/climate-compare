@@ -49,13 +49,16 @@ CC.setupGraph = function (){
     this.xAxis = d3.svg.axis()
         .scale(this.x)
         .orient('bottom')
-        .tickFormat(d3.time.format("%b"));
+        .tickFormat(d3.time.format('%b'));
 
     this.yAxis = d3.svg.axis()
         .scale(this.y)
-        .orient('left');
+        .orient('left')
+        .tickFormat(function (d) {
+            return d + 'º';
+        });
 
-    this.svg = d3.select('body').append('svg')
+    this.svg = d3.select('svg')
         .attr('width', this.width + margin.left + margin.right)
         .attr('height', this.height + margin.top + margin.bottom)
         .append('g')
@@ -83,6 +86,8 @@ CC.setupGraph = function (){
         .y0(function (d) { return CC.y(d.tmin); })
         .y1(function (d) { return CC.y(d.tmax); });
 
+    d3.select('p.small')
+        .classed('hidden', false);
 
     CC.doneSetup = true;
 };
